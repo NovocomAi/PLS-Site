@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Language, translations } from '../translations.ts';
 
@@ -19,20 +18,20 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/60 to-transparent"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-24 md:pt-0">
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full mb-6">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-            <span className="text-amber-500 text-xs font-bold uppercase tracking-widest">{t.tag}</span>
+            <span className="text-amber-500 text-xs font-bold uppercase tracking-widest">
+              {t.tag}
+            </span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
             {t.title} <br />
             <span className="text-amber-500">{t.subtitle}</span>
           </h1>
-          <p className="text-xl text-slate-300 mb-10 leading-relaxed max-w-2xl">
-            {t.desc}
-          </p>
-          
+          <p className="text-xl text-slate-300 mb-10 leading-relaxed max-w-2xl">{t.desc}</p>
+
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="#services"
@@ -64,7 +63,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
           </div>
         </div>
       </div>
-      
+
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#f8f6f0] to-transparent pointer-events-none"></div>
     </div>
   );

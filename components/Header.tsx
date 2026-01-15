@@ -44,9 +44,7 @@ const Header: React.FC<HeaderProps> = ({ onAdminClick, lang, setLang }) => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'glass-nav py-3 shadow-md'
-          : 'bg-slate-900/40 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none py-6'
+        isScrolled ? 'glass-nav py-3 shadow-md' : 'bg-gray-900/25 md:bg-transparent py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">

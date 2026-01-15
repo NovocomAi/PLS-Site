@@ -118,7 +118,9 @@ const Header: React.FC<HeaderProps> = ({ onAdminClick, lang, setLang }) => {
 
           <a
             href="#contact"
-            className="bg-amber-500 hover:bg-amber-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg hover:shadow-amber-500/20"
+            className={`bg-amber-500 hover:bg-amber-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg hover:shadow-amber-500/20 ${
+              lang === 'pt' ? 'relative right-[15px]' : ''
+            }`}
           >
             {t.nav.cta}
           </a>

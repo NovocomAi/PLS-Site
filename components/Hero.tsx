@@ -12,7 +12,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=2000"
-          className="w-full h-full object-cover object-center md:object-[center_150px]"
+          className="w-full h-full object-cover md:translate-y-[150px]"
           alt="London Legal Quarter"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/60 to-transparent"></div>

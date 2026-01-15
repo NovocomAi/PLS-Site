@@ -20,7 +20,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
 
       <div
         className={`relative z-10 max-w-7xl mx-auto px-6 w-full ${
-          lang === 'pt' ? 'pt-[440px] lg:pt-[350px]' : 'pt-[245px] lg:pt-[160px]'
+          lang === 'pt' ? 'pt-[480px] lg:pt-[350px]' : 'pt-[285px] lg:pt-[160px]'
         }`}
       >
         <div className="max-w-3xl">

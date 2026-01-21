@@ -79,17 +79,9 @@ const AdminClientDetailPage: React.FC = () => {
     <div className="bg-slate-50 py-14">
       <div className="max-w-6xl mx-auto px-6 space-y-8">
         <div className="flex items-start justify-between gap-4 flex-wrap">
-          <button
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
-          >
-            <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center">←</span>
-            Back
-          </button>
-
-          <div className="text-right ml-auto">
+          <div className="space-y-1">
             <div className="text-xs font-bold uppercase tracking-[0.25em] text-slate-500">Admin view</div>
-            <h1 className="text-3xl font-bold text-slate-900 mt-2">{client.profile.name || email}</h1>
+            <h1 className="text-3xl font-bold text-slate-900 mt-1">{client.profile.name || email}</h1>
             <div className="text-slate-600 text-sm">{client.profile.email}</div>
             <div className="text-slate-500 text-sm whitespace-pre-line">
               {client.profile.address.replace(/,\s*/g, ',\n')}
@@ -97,8 +89,15 @@ const AdminClientDetailPage: React.FC = () => {
             <div className="text-slate-500 text-sm whitespace-pre-line">
               {client.profile.phone.replace(/\s*\/\s*/g, '\n')}
             </div>
-            <div className="text-[11px] text-slate-400 mt-2">Updated {new Date(client.updatedAt).toLocaleString()}</div>
+            <div className="text-[11px] text-slate-400 mt-1">Updated {new Date(client.updatedAt).toLocaleString()}</div>
           </div>
+          <button
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
+          >
+            <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center">←</span>
+            Back
+          </button>
         </div>
 
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">

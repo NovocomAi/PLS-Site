@@ -22,7 +22,7 @@ const AdminClientsPage: React.FC = () => {
             name: 'Andrew Person',
             email: seedEmail,
             address: '30 Harrington Gardens, London SW7 4TL',
-            phone: '07304 021 303 / 0207 555 1234',
+            phone: '+44 7304 021 303 / 0207 555 1234',
           },
           docs: [],
           audit: [],
@@ -81,7 +81,9 @@ const AdminClientsPage: React.FC = () => {
             >
               <div className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em]">{email}</div>
               <div className="text-lg font-bold text-slate-900 mt-1">{record.profile.name || 'Unnamed client'}</div>
-              <div className="text-sm text-slate-500 mt-1">{record.profile.address}</div>
+              <div className="text-sm text-slate-500 mt-1 whitespace-pre-line">
+                {record.profile.address.replace(/,\s*/g, ',\n')}
+              </div>
               <div className="text-[11px] text-slate-400 mt-2">Updated {new Date(record.updatedAt).toLocaleString()}</div>
             </Link>
           ))}

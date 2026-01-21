@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Language } from '../translations.ts';
 
@@ -34,11 +34,12 @@ type UploadedDoc = {
   mime?: string;
 };
 
-const defaultProfile: Profile = {
-  name: '',
-  email: '',
-  address: '',
-  phone: '',
+const seedEmail = 'andrew.person@example.com';
+const seedProfile: Profile = {
+  name: 'Andrew Person',
+  email: seedEmail,
+  address: '30 Harrington Gardens, London SW7 4TL',
+  phone: '+44 7304 021 303 / 0207 555 1234',
 };
 
 const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }) => {
@@ -56,19 +57,14 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
 
   const portalEmail = useMemo(() => {
     try {
-      return localStorage.getItem('pls_portal_email') || (location.state as any)?.email || '';
+      return localStorage.getItem('pls_portal_email') || (location.state as any)?.email || seedEmail;
     } catch {
-      return '';
+      return seedEmail;
     }
   }, [location.state]);
 
-  const initialProfile = onboardingProfile || {
-    ...defaultProfile,
-    email: portalEmail || defaultProfile.email,
-  };
-
-  const [profile, setProfile] = useState<Profile>(initialProfile);
-  const [draft, setDraft] = useState<Profile>(initialProfile);
+  const [profile, setProfile] = useState<Profile>(seedProfile);
+  const [draft, setDraft] = useState<Profile>(seedProfile);
   const [audit, setAudit] = useState<AuditEntry[]>([]);
   const [docs, setDocs] = useState<UploadedDoc[]>([]);
   const [saving, setSaving] = useState(false);
@@ -77,6 +73,36 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
   const objectUrlsRef = useRef<string[]>([]);
   const replaceInputRef = useRef<HTMLInputElement>(null);
   const [replaceTarget, setReplaceTarget] = useState<UploadedDoc | null>(null);
+  const [aiAccess, setAiAccess] = useState(true);
+
+  useEffect(() => {
+    try {
+      const key = 'pls_clients';
+      const raw = localStorage.getItem(key);
+      const parsed = raw ? JSON.parse(raw) : {};
+      let rec = parsed[portalEmail];
+      if (!rec) {
+        rec = {
+          profile: onboardingProfile || seedProfile,
+          docs: [],
+          audit: [],
+          updatedAt: new Date().toISOString(),
+          aiAccess: true,
+        };
+        parsed[portalEmail] = rec;
+        localStorage.setItem(key, JSON.stringify(parsed));
+      }
+      setProfile(rec.profile || seedProfile);
+      setDraft(rec.profile || seedProfile);
+      setDocs(rec.docs || []);
+      setAudit(rec.audit || []);
+      setAiAccess(rec.aiAccess !== false);
+    } catch (err) {
+      console.error('Failed to load client data', err);
+      setProfile(seedProfile);
+      setDraft(seedProfile);
+    }
+  }, [portalEmail, onboardingProfile]);
 
   const logChange = (summary: string, type: AuditEntry['type']) => {
     setAudit((prev) => [
@@ -95,6 +121,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
         docs: nextDocs,
         audit: nextAudit,
         updatedAt: new Date().toISOString(),
+        aiAccess,
       };
       parsed[portalEmail] = record;
       localStorage.setItem(key, JSON.stringify(parsed));

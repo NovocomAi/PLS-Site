@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ onAdminClick, lang, setLang }) => {
   const handleAdminStart = () => {
     adminTimerRef.current = window.setTimeout(() => {
       setShowKeypad(true);
-    }, 10000);
+    }, 5000);
   };
 
   const handleAdminEnd = () => {

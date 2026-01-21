@@ -50,7 +50,7 @@ export const SERVICES: Service[] = [
   {
     id: ServiceType.ACCOUNTANCY,
     title: 'Accountancy & Tax',
-    description: 'ACCA registered accounting and HMRC representation.',
+    description: 'ACCA registered accounting, HMRC registered, HMRC Agent.',
     longDescription:
       'Strategic tax planning, financial statement preparation, and business advisory services for UK and PT entities.',
     image:

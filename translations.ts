@@ -117,7 +117,7 @@ export const translations = {
       legalLong:
         'Expertise in Property, Immigration, Family, and Portuguese Law through partnerships with Millbank, Montague, and AQ Archers.',
       accountancyTitle: 'Accountancy & Tax',
-      accountancyDesc: 'ACCA registered accounting and HMRC representation.',
+      accountancyDesc: 'ACCA registered accounting, HMRC registered, HMRC Agent.',
       accountancyLong:
         'Strategic tax planning, financial statement preparation, and business advisory services for UK and PT entities.',
       translationTitle: 'Translation Services',
@@ -250,7 +250,7 @@ export const translations = {
       legalLong:
         'Especialização em Direito Imobiliário, Imigração, Família e Direito Português através de parcerias com Millbank, Montague e AQ Archers.',
       accountancyTitle: 'Contabilidade e Impostos',
-      accountancyDesc: 'Contabilidade registada ACCA e representação HMRC.',
+      accountancyDesc: 'Contabilidade registada ACCA, registada HMRC e agente HMRC.',
       accountancyLong:
         'Planeamento fiscal estratégico, preparação de demonstrações financeiras e serviços de consultoria empresarial para entidades do Reino Unido e Portugal.',
       translationTitle: 'Serviços de Tradução',

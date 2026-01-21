@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Language } from '../translations.ts';
 
@@ -26,6 +26,8 @@ type UploadedDoc = {
   size: number;
   category: 'identity' | 'accounting';
   timestamp: string;
+  url: string;
+  isImage: boolean;
 };
 
 const defaultProfile: Profile = {
@@ -66,6 +68,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
   const [audit, setAudit] = useState<AuditEntry[]>([]);
   const [docs, setDocs] = useState<UploadedDoc[]>([]);
   const [saving, setSaving] = useState(false);
+  const objectUrlsRef = useRef<string[]>([]);
 
   const logChange = (summary: string, type: AuditEntry['type']) => {
     setAudit((prev) => [
@@ -93,12 +96,16 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
   const handleUpload = (category: UploadedDoc['category'], fileList: FileList | null) => {
     if (!fileList || fileList.length === 0) return;
     const file = fileList[0];
+    const url = URL.createObjectURL(file);
+    objectUrlsRef.current.push(url);
     const entry: UploadedDoc = {
       id: crypto.randomUUID(),
       name: file.name,
       size: file.size,
       category,
       timestamp: new Date().toISOString(),
+      url,
+      isImage: file.type.startsWith('image/'),
     };
     setDocs((prev) => [entry, ...prev]);
     logChange(`Uploaded ${file.name} to ${category === 'identity' ? 'Identity Vault' : 'Accounting Folder'}`, 'upload');
@@ -112,6 +119,12 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
 
   const identityDocs = docs.filter((d) => d.category === 'identity');
   const accountingDocs = docs.filter((d) => d.category === 'accounting');
+
+  React.useEffect(() => {
+    return () => {
+      objectUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, []);
 
   if (!portalEmail) {
     return (
@@ -242,13 +255,28 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
             <div className="space-y-3">
               {identityDocs.length === 0 && <div className="text-sm text-slate-400">No identity documents uploaded.</div>}
               {identityDocs.map((doc) => (
-                <div key={doc.id} className="p-3 border border-slate-100 rounded-xl bg-slate-50 flex items-center justify-between">
-                  <div>
-                    <div className="text-sm font-bold text-slate-800">{doc.name}</div>
-                    <div className="text-[11px] text-slate-400">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
+                <a
+                  key={doc.id}
+                  href={doc.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 border border-slate-100 rounded-xl bg-slate-50 flex items-center justify-between hover:border-amber-200 hover:bg-amber-50/40 transition-colors gap-3"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-12 h-12 rounded-xl bg-white border border-slate-100 overflow-hidden flex items-center justify-center">
+                      {doc.isImage ? (
+                        <img src={doc.url} alt={doc.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-[10px] font-bold text-slate-400 uppercase">File</div>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-sm font-bold text-slate-800 underline truncate">{doc.name}</div>
+                      <div className="text-[11px] text-slate-400 truncate">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
+                    </div>
                   </div>
                   <span className="text-[11px] font-bold text-amber-600 uppercase tracking-[0.2em]">ID</span>
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -265,13 +293,28 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
             <div className="space-y-3">
               {accountingDocs.length === 0 && <div className="text-sm text-slate-400">No accounting documents uploaded.</div>}
               {accountingDocs.map((doc) => (
-                <div key={doc.id} className="p-3 border border-slate-100 rounded-xl bg-slate-50 flex items-center justify-between">
-                  <div>
-                    <div className="text-sm font-bold text-slate-800">{doc.name}</div>
-                    <div className="text-[11px] text-slate-400">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
+                <a
+                  key={doc.id}
+                  href={doc.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 border border-slate-100 rounded-xl bg-slate-50 flex items-center justify-between hover:border-slate-300 hover:bg-white transition-colors gap-3"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-12 h-12 rounded-xl bg-white border border-slate-100 overflow-hidden flex items-center justify-center">
+                      {doc.isImage ? (
+                        <img src={doc.url} alt={doc.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-[10px] font-bold text-slate-400 uppercase">File</div>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-sm font-bold text-slate-800 underline truncate">{doc.name}</div>
+                      <div className="text-[11px] text-slate-400 truncate">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
+                    </div>
                   </div>
                   <span className="text-[11px] font-bold text-slate-700 uppercase tracking-[0.2em]">Folder</span>
-                </div>
+                </a>
               ))}
             </div>
           </div>

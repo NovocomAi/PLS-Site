@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import AdminDashboard from './components/AdminDashboard.tsx';
 import Footer from './components/Footer.tsx';
 import Header from './components/Header.tsx';
@@ -23,12 +23,34 @@ const App: React.FC = () => {
     console.log('PLS App Initialized');
   }, []);
 
+  const ScrollToHash: React.FC = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+      if (location.hash) {
+        const id = decodeURIComponent(location.hash.slice(1));
+        const el = document.getElementById(id);
+        if (el) {
+          requestAnimationFrame(() => {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, [location]);
+
+    return null;
+  };
+
   return (
     <BrowserRouter>
       <div className="min-h-screen flex flex-col bg-[#fdfcfb]">
         <Header onAdminClick={() => setIsAdminOpen(true)} lang={lang} setLang={setLang} />
 
-        <main className="flex-grow pt-16 md:pt-20">
+        <ScrollToHash />
+
+        <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage lang={lang} />} />
             <Route path="/ai/legal" element={<AiLegalPage lang={lang} />} />

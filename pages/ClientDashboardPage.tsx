@@ -257,6 +257,13 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
           <div className="bg-white border border-amber-100 text-amber-700 px-4 py-3 rounded-xl text-sm font-bold">
             Audit logging enabled
           </div>
+          <button
+            onClick={() => navigate('/')}
+            className="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
+          >
+            <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center">🏠</span>
+            Back to website
+          </button>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">

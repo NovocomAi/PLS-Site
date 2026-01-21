@@ -101,6 +101,34 @@ const AdminClientDetailPage: React.FC = () => {
           </div>
         </div>
 
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <h3 className="text-lg font-bold text-slate-900">AI assistant</h3>
+            <div className="flex gap-2 text-xs text-slate-500">
+              <span>UK & PT accounting-aware</span>
+              <span className="text-amber-600">•</span>
+              <span>Can draft doc requests</span>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {['Check missing docs','Draft reminder email','Summarize latest uploads','List required ID items'].map((s) => (
+              <button
+                key={s}
+                className="px-3 py-2 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 hover:border-amber-300 hover:text-amber-700"
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+          <textarea
+            className="w-full border border-slate-200 rounded-2xl p-4 text-sm text-slate-800 bg-slate-50 focus:border-amber-500 focus:ring-amber-500 min-h-[120px]"
+            placeholder="Ask the AI to review missing documents, draft reminders, or suggest next steps..."
+          />
+          <button className="px-4 py-3 bg-slate-900 text-amber-500 rounded-xl font-bold text-sm hover:bg-slate-800 w-full sm:w-auto">
+            Send to AI
+          </button>
+        </div>
+
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
             <h3 className="text-lg font-bold text-slate-900 mb-3">Documents</h3>

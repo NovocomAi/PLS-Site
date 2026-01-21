@@ -171,6 +171,18 @@ const ClientDocumentsPage: React.FC = () => {
   const identityDocs = docs.filter((d) => d.category === 'identity');
   const accountingDocs = docs.filter((d) => d.category === 'accounting');
 
+  const identityTypes: { key: UploadedDoc['docKind']; label: string }[] = [
+    { key: 'passport', label: 'Passport' },
+    { key: 'driver_license', label: 'Driver Licence' },
+  ];
+
+  const accountingTypes: { key: UploadedDoc['docKind']; label: string }[] = [
+    { key: 'bank_statement', label: 'Bank statement' },
+    { key: 'compliance', label: 'Compliance documents' },
+    { key: 'expenses', label: 'Expenses' },
+    { key: 'other', label: 'Other' },
+  ];
+
   if (!portalEmail) {
     return (
       <div className="bg-slate-50 py-14">
@@ -208,140 +220,162 @@ const ClientDocumentsPage: React.FC = () => {
           </button>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-            <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
-              <div>
-                <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">Identity vault</div>
-                <div className="text-sm text-slate-500">Upload passport or driver licence.</div>
-              </div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <select
-                  className="px-3 py-2 rounded-lg border border-amber-200 bg-amber-50 text-amber-700 text-sm font-semibold"
-                  value={identityKind}
-                  onChange={(e) => setIdentityKind(e.target.value as UploadedDoc['docKind'])}
-                >
-                  <option value="passport">Passport</option>
-                  <option value="driver_license">Driver Licence</option>
-                </select>
-                <label className="px-3 py-2 bg-amber-50 text-amber-700 rounded-lg text-sm font-semibold cursor-pointer border border-amber-100">
-                  Upload
-                  <input
-                    type="file"
-                    className="hidden"
-                    multiple
-                    accept="image/*,.pdf"
-                    onChange={(e) => handleUpload('identity', e.target.files, identityKind)}
-                  />
-                </label>
-              </div>
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">Identity documents</div>
+              <div className="text-sm text-slate-500">Upload passport or driver licence.</div>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {identityDocs.length === 0 && <div className="text-sm text-slate-400">No identity documents uploaded.</div>}
-              {identityDocs.map((doc) => (
-                <div key={doc.id} className="p-3 border border-slate-100 rounded-xl bg-slate-50 flex flex-col gap-2">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-12 h-12 rounded-xl bg-white border border-slate-100 overflow-hidden flex items-center justify-center">
-                      {doc.isImage ? (
-                        <img src={doc.url} alt={doc.name} className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="text-[10px] font-bold text-slate-400 uppercase">File</div>
-                      )}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-sm font-bold text-slate-800 truncate">{doc.name}</div>
-                      <div className="text-[11px] text-amber-700 uppercase tracking-[0.2em]">{doc.docKind}</div>
-                      <div className="text-[11px] text-slate-400 truncate">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
-                    </div>
-                  </div>
-                  <input
-                    type="text"
-                    value={doc.note}
-                    onChange={(e) => updateNote(doc.id, e.target.value)}
-                    placeholder="Add a note"
-                    className="w-full text-[11px] text-slate-700 border border-slate-200 rounded px-2 py-1"
-                  />
-                  <div className="flex items-center justify-between text-[11px] text-amber-600 font-bold uppercase tracking-[0.2em]">
-                    ID
-                    <button
-                      type="button"
-                      onClick={() => triggerReplace(doc)}
-                      className="text-amber-700 hover:text-amber-800 underline"
-                    >
-                      Replace
-                    </button>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center gap-2">
+              <select
+                className="px-3 py-2 rounded-lg border border-amber-200 bg-amber-50 text-amber-700 text-sm font-semibold"
+                value={identityKind}
+                onChange={(e) => setIdentityKind(e.target.value as UploadedDoc['docKind'])}
+              >
+                <option value="passport">Passport</option>
+                <option value="driver_license">Driver Licence</option>
+              </select>
+              <label className="px-3 py-2 bg-amber-50 text-amber-700 rounded-lg text-sm font-semibold cursor-pointer border border-amber-100">
+                Upload
+                <input
+                  type="file"
+                  className="hidden"
+                  multiple
+                  accept="image/*,.pdf"
+                  onChange={(e) => handleUpload('identity', e.target.files, identityKind)}
+                />
+              </label>
             </div>
           </div>
-
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-            <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
-              <div>
-                <div className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-700">Accounting folder</div>
-                <div className="text-sm text-slate-500">Upload statements, compliance docs, expenses.</div>
-              </div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <select
-                  className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm font-semibold"
-                  value={accountingKind}
-                  onChange={(e) => setAccountingKind(e.target.value as UploadedDoc['docKind'])}
-                >
-                  <option value="bank_statement">Bank statement</option>
-                  <option value="compliance">Compliance documents</option>
-                  <option value="expenses">Expenses</option>
-                  <option value="other">Other</option>
-                </select>
-                <label className="px-3 py-2 bg-slate-900 text-amber-500 rounded-lg text-sm font-semibold cursor-pointer border border-slate-800">
-                  Upload
-                  <input
-                    type="file"
-                    className="hidden"
-                    multiple
-                    onChange={(e) => handleUpload('accounting', e.target.files, accountingKind)}
-                  />
-                </label>
-              </div>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {accountingDocs.length === 0 && <div className="text-sm text-slate-400">No accounting documents uploaded.</div>}
-              {accountingDocs.map((doc) => (
-                <div key={doc.id} className="p-3 border border-slate-100 rounded-xl bg-slate-50 flex flex-col gap-2">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-12 h-12 rounded-xl bg-white border border-slate-100 overflow-hidden flex items-center justify-center">
-                      {doc.isImage ? (
-                        <img src={doc.url} alt={doc.name} className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="text-[10px] font-bold text-slate-400 uppercase">File</div>
-                      )}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-sm font-bold text-slate-800 truncate">{doc.name}</div>
-                      <div className="text-[11px] text-slate-700 uppercase tracking-[0.2em]">{doc.docKind}</div>
-                      <div className="text-[11px] text-slate-400 truncate">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
-                    </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {identityTypes.map((type) => {
+              const match = identityDocs.find((d) => d.docKind === type.key);
+              return (
+                <div key={type.key} className="p-3 border border-slate-100 rounded-xl bg-slate-50 flex flex-col gap-2">
+                  <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.2em] text-amber-600">
+                    {type.label}
+                    {match ? (
+                      <span className="text-green-600">Uploaded</span>
+                    ) : (
+                      <span className="text-slate-400">Missing</span>
+                    )}
                   </div>
-                  <input
-                    type="text"
-                    value={doc.note}
-                    onChange={(e) => updateNote(doc.id, e.target.value)}
-                    placeholder="Add a note"
-                    className="w-full text-[11px] text-slate-700 border border-slate-200 rounded px-2 py-1"
-                  />
-                  <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700">
-                    Folder
-                    <button
-                      type="button"
-                      onClick={() => triggerReplace(doc)}
-                      className="text-slate-800 hover:text-slate-900 underline"
-                    >
-                      Replace
-                    </button>
-                  </div>
+                  {match ? (
+                    <>
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-12 h-12 rounded-xl bg-white border border-slate-100 overflow-hidden flex items-center justify-center">
+                          {match.isImage ? (
+                            <img src={match.url} alt={match.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="text-[10px] font-bold text-slate-400 uppercase">File</div>
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="text-sm font-bold text-slate-800 truncate">{match.name}</div>
+                          <div className="text-[11px] text-slate-400 truncate">{formatSize(match.size)} • {new Date(match.timestamp).toLocaleString()}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={match.note}
+                          onChange={(e) => updateNote(match.id, e.target.value)}
+                          placeholder="Add a note"
+                          className="w-full text-[11px] text-slate-700 border border-slate-200 rounded px-2 py-1"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => triggerReplace(match)}
+                          className="text-[11px] font-bold text-amber-700 underline"
+                        >
+                          Reupload
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-xs text-slate-500">No file uploaded yet.</div>
+                  )}
                 </div>
-              ))}
+              );
+            })}
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-700">Accounting documents</div>
+              <div className="text-sm text-slate-500">Upload statements, compliance docs, expenses.</div>
             </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <select
+                className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm font-semibold"
+                value={accountingKind}
+                onChange={(e) => setAccountingKind(e.target.value as UploadedDoc['docKind'])}
+              >
+                {accountingTypes.map((t) => (
+                  <option key={t.key} value={t.key}>{t.label}</option>
+                ))}
+              </select>
+              <label className="px-3 py-2 bg-slate-900 text-amber-500 rounded-lg text-sm font-semibold cursor-pointer border border-slate-800">
+                Upload
+                <input
+                  type="file"
+                  className="hidden"
+                  multiple
+                  onChange={(e) => handleUpload('accounting', e.target.files, accountingKind)}
+                />
+              </label>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {accountingTypes.map((type) => {
+              const matches = accountingDocs.filter((d) => d.docKind === type.key);
+              const filled = matches.length > 0;
+              return (
+                <div key={type.key} className="p-3 border border-slate-100 rounded-xl bg-slate-50 flex flex-col gap-2">
+                  <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.2em] text-slate-700">
+                    {type.label}
+                    {filled ? <span className="text-green-600">{matches.length} file(s)</span> : <span className="text-slate-400">Missing</span>}
+                  </div>
+                  {filled ? (
+                    matches.map((doc) => (
+                      <div key={doc.id} className="border border-slate-100 rounded-lg p-2 bg-white flex flex-col gap-2">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-10 h-10 rounded-lg bg-white border border-slate-100 overflow-hidden flex items-center justify-center">
+                            {doc.isImage ? (
+                              <img src={doc.url} alt={doc.name} className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="text-[10px] font-bold text-slate-400 uppercase">File</div>
+                            )}
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-sm font-bold text-slate-800 truncate">{doc.name}</div>
+                            <div className="text-[11px] text-slate-400 truncate">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={doc.note}
+                            onChange={(e) => updateNote(doc.id, e.target.value)}
+                            placeholder="Add a note"
+                            className="w-full text-[11px] text-slate-700 border border-slate-200 rounded px-2 py-1"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => triggerReplace(doc)}
+                            className="text-[11px] font-bold text-slate-800 underline"
+                          >
+                            Reupload
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-xs text-slate-500">No files uploaded yet.</div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 

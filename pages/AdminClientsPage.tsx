@@ -9,6 +9,7 @@ type ClientRecord = {
 
 const AdminClientsPage: React.FC = () => {
   const [clients, setClients] = useState<Record<string, ClientRecord>>({});
+  const [aiMessage, setAiMessage] = useState('');
 
   useEffect(() => {
     try {
@@ -31,6 +32,24 @@ const AdminClientsPage: React.FC = () => {
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3">Client directory</h1>
             <p className="text-slate-600 text-sm mt-1">Select a client to view profile and documents.</p>
+          </div>
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm max-w-md">
+            <div className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-600 mb-2">AI assistant (accountant)</div>
+            <div className="flex flex-col gap-2 text-sm text-slate-600">
+              <button
+                className="px-3 py-2 rounded-lg border border-slate-200 hover:border-amber-300 hover:bg-amber-50 text-slate-800 font-semibold"
+                onClick={() => setAiMessage('Drafting document requests for all clients based on missing required items (ID + accounting packs).')}
+              >
+                Draft requests for all clients
+              </button>
+              <button
+                className="px-3 py-2 rounded-lg border border-slate-200 hover:border-amber-300 hover:bg-amber-50 text-slate-800 font-semibold"
+                onClick={() => setAiMessage('Preparing reminders to clients with incomplete document sets.')} 
+              >
+                Send reminders to incomplete clients
+              </button>
+              {aiMessage && <div className="text-xs text-amber-700">{aiMessage}</div>}
+            </div>
           </div>
         </div>
 

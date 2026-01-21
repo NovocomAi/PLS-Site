@@ -50,6 +50,28 @@ const AdminClientDetailPage: React.FC = () => {
   const identityDocs = client.docs?.filter((d) => d.category === 'identity') || [];
   const accountingDocs = client.docs?.filter((d) => d.category === 'accounting') || [];
 
+  const requiredIdentity: { key: string; label: string }[] = [
+    { key: 'passport', label: 'Passport' },
+    { key: 'driver_license', label: 'Driver Licence' },
+  ];
+
+  const requiredAccounting: { key: string; label: string }[] = [
+    { key: 'bank_statement', label: 'Bank statements' },
+    { key: 'compliance', label: 'Compliance documents' },
+    { key: 'expenses', label: 'Expenses' },
+  ];
+
+  const hasDocKind = (docs: StoredDoc[], kind: string) => docs.some((d) => d.docKind === kind);
+  const missingIdentity = requiredIdentity.filter((r) => !hasDocKind(identityDocs, r.key));
+  const missingAccounting = requiredAccounting.filter((r) => !hasDocKind(accountingDocs, r.key));
+
+  const suggestions: string[] = [];
+  if (missingIdentity.length) suggestions.push(`Request ID: ${missingIdentity.map((m) => m.label).join(', ')}`);
+  if (missingAccounting.length) suggestions.push(`Request accounting docs: ${missingAccounting.map((m) => m.label).join(', ')}`);
+  if (!missingAccounting.length) suggestions.push('Accounting pack appears complete; proceed with reconciliation.');
+  if (accountingDocs.length && !missingAccounting.length) suggestions.push('Run anomaly checks on uploaded statements/expenses.');
+  if (!identityDocs.length) suggestions.push('ID missing; obtain before filing or onboarding.');
+
   return (
     <div className="bg-slate-50 py-14">
       <div className="max-w-6xl mx-auto px-6 space-y-8">
@@ -98,6 +120,47 @@ const AdminClientDetailPage: React.FC = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-bold text-slate-900">AI assistant for accountants</h3>
+            <button className="px-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 hover:border-amber-300 hover:bg-amber-50">
+              Send reminders for missing docs
+            </button>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+            <div className="p-3 rounded-xl border border-slate-100 bg-slate-50">
+              <div className="text-[10px] uppercase font-black tracking-[0.25em] text-amber-600">ID docs</div>
+              <div className="text-sm text-slate-800">{identityDocs.length} uploaded</div>
+              <div className="text-xs text-slate-500">Missing: {missingIdentity.length ? missingIdentity.map((m) => m.label).join(', ') : 'None'}</div>
+            </div>
+            <div className="p-3 rounded-xl border border-slate-100 bg-slate-50">
+              <div className="text-[10px] uppercase font-black tracking-[0.25em] text-slate-700">Accounting</div>
+              <div className="text-sm text-slate-800">{accountingDocs.length} uploaded</div>
+              <div className="text-xs text-slate-500">Missing: {missingAccounting.length ? missingAccounting.map((m) => m.label).join(', ') : 'None'}</div>
+            </div>
+            <div className="p-3 rounded-xl border border-slate-100 bg-slate-50">
+              <div className="text-[10px] uppercase font-black tracking-[0.25em] text-slate-700">Latest</div>
+              <div className="text-sm text-slate-800 truncate">{client.docs?.[0]?.name || '—'}</div>
+              <div className="text-[11px] text-slate-500">{client.docs?.[0] ? new Date(client.docs[0].timestamp).toLocaleString() : 'No docs yet'}</div>
+            </div>
+            <div className="p-3 rounded-xl border border-slate-100 bg-slate-50">
+              <div className="text-[10px] uppercase font-black tracking-[0.25em] text-slate-700">Audit</div>
+              <div className="text-sm text-slate-800">{client.audit?.length || 0} entries</div>
+              <div className="text-xs text-slate-500">Latest: {client.audit?.[0] ? new Date(client.audit[0].timestamp).toLocaleString() : '—'}</div>
+            </div>
+          </div>
+          <div className="space-y-2 text-sm text-slate-700">
+            <div className="font-bold text-slate-900">Suggested actions</div>
+            {suggestions.map((s, i) => (
+              <div key={i} className="flex items-start gap-2">
+                <span className="text-amber-600">•</span>
+                <span>{s}</span>
+              </div>
+            ))}
+            {!suggestions.length && <div className="text-slate-500">No actions suggested.</div>}
           </div>
         </div>
       </div>

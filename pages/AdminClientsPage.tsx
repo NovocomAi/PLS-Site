@@ -60,17 +60,33 @@ const AdminClientsPage: React.FC = () => {
     });
   };
 
+  const deleteClient = (email: string) => {
+    if (!confirm(`Delete client ${email}? This cannot be undone.`)) return;
+    setClients((prev) => {
+      const next = { ...prev };
+      delete next[email];
+      try {
+        const key = 'pls_clients';
+        const raw = localStorage.getItem(key);
+        const parsed = raw ? JSON.parse(raw) : {};
+        delete parsed[email];
+        localStorage.setItem(key, JSON.stringify(parsed));
+      } catch (err) {
+        console.error('Failed to delete client', err);
+      }
+      return next;
+    });
+  };
+
   return (
     <div className="bg-slate-50 py-14">
       <div className="max-w-6xl mx-auto px-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold uppercase tracking-[0.25em]">
-              Admin
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3">Client directory</h1>
-            <p className="text-slate-600 text-sm mt-1">Select a client to view profile and documents.</p>
+        <div className="flex flex-col gap-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold uppercase tracking-[0.25em]">
+            Admin
           </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Client directory</h1>
+          <p className="text-slate-600 text-sm">Select a client to view profile and documents.</p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-3xl p-4 shadow-sm space-y-3">
@@ -144,6 +160,17 @@ const AdminClientsPage: React.FC = () => {
                 />
                 AI access
               </label>
+              <div className="mt-2 flex justify-end">
+                <button
+                  className="text-[11px] font-semibold text-red-600 hover:text-red-700"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteClient(email);
+                  }}
+                >
+                  Delete client
+                </button>
+              </div>
             </div>
           ))}
         </div>

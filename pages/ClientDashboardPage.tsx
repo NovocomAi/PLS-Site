@@ -71,9 +71,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
   const [docs, setDocs] = useState<UploadedDoc[]>([]);
   const [saving, setSaving] = useState(false);
   const [identityKind, setIdentityKind] = useState<UploadedDoc['docKind']>('passport');
-  const [identityNote, setIdentityNote] = useState('');
   const [accountingKind, setAccountingKind] = useState<UploadedDoc['docKind']>('bank_statement');
-  const [accountingNote, setAccountingNote] = useState('');
   const objectUrlsRef = useRef<string[]>([]);
   const replaceInputRef = useRef<HTMLInputElement>(null);
   const [replaceTarget, setReplaceTarget] = useState<UploadedDoc | null>(null);
@@ -123,32 +121,34 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
   const handleUpload = (
     category: UploadedDoc['category'],
     fileList: FileList | null,
-    docKind: UploadedDoc['docKind'],
-    note: string
+    docKind: UploadedDoc['docKind']
   ) => {
     if (!fileList || fileList.length === 0) return;
-    const file = fileList[0];
-    const url = URL.createObjectURL(file);
-    objectUrlsRef.current.push(url);
-    const entry: UploadedDoc = {
-      id: crypto.randomUUID(),
-      name: file.name,
-      size: file.size,
-      category,
-      timestamp: new Date().toISOString(),
-      url,
-      isImage: file.type.startsWith('image/'),
-      docKind,
-      note,
-    };
+    const files = Array.from(fileList);
+    const newEntries: UploadedDoc[] = files.map((file) => {
+      const url = URL.createObjectURL(file);
+      objectUrlsRef.current.push(url);
+      return {
+        id: crypto.randomUUID(),
+        name: file.name,
+        size: file.size,
+        category,
+        timestamp: new Date().toISOString(),
+        url,
+        isImage: file.type.startsWith('image/'),
+        docKind,
+        note: '',
+      };
+    });
+
     setDocs((prev) => {
       let next = [...prev];
       if (category === 'identity') {
         next = next.filter((d) => !(d.category === 'identity' && d.docKind === docKind));
       }
-      next = [entry, ...next];
+      next = [...newEntries, ...next];
       const desc = category === 'identity' ? 'Identity Vault' : 'Accounting Folder';
-      logChange(`Uploaded ${file.name} to ${desc} (${docKind})`, 'upload');
+      logChange(`Uploaded ${newEntries.length} file(s) to ${desc} (${docKind})`, 'upload');
       persistClient(next, audit);
       return next;
     });
@@ -197,6 +197,14 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
     });
     setReplaceTarget(null);
     e.target.value = '';
+  };
+
+  const updateNote = (id: string, value: string) => {
+    setDocs((prev) => {
+      const next = prev.map((d) => (d.id === id ? { ...d, note: value } : d));
+      persistClient(next, audit);
+      return next;
+    });
   };
 
   if (!portalEmail) {
@@ -340,21 +348,13 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
                     type="file"
                     className="hidden"
                     accept="image/*,.pdf"
-                    onChange={(e) => handleUpload('identity', e.target.files, identityKind, identityNote)}
+                    multiple
+                    onChange={(e) => handleUpload('identity', e.target.files, identityKind)}
                   />
                 </label>
               </div>
             </div>
-            <div className="grid md:grid-cols-[2fr_1fr] gap-3 mb-3">
-              <p className="text-sm text-slate-500">Add passport or driver licence files. Stored securely with a change record.</p>
-              <input
-                type="text"
-                value={identityNote}
-                onChange={(e) => setIdentityNote(e.target.value)}
-                placeholder="Note (e.g., Front, Expiry 2028)"
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm"
-              />
-            </div>
+            <p className="text-sm text-slate-500 mb-3">Add passport or driver licence files. Stored securely with a change record.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {identityDocs.length === 0 && <div className="text-sm text-slate-400">No identity documents uploaded.</div>}
               {identityDocs.map((doc) => (
@@ -376,7 +376,13 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
                     <div className="min-w-0">
                       <div className="text-sm font-bold text-slate-800 underline truncate">{doc.name}</div>
                       <div className="text-[11px] text-amber-700 uppercase tracking-[0.2em]">{doc.docKind}</div>
-                      <div className="text-[11px] text-slate-500 truncate">{doc.note || 'No note added'}</div>
+                      <input
+                        type="text"
+                        value={doc.note}
+                        onChange={(e) => updateNote(doc.id, e.target.value)}
+                        placeholder="Add a note"
+                        className="w-full text-[11px] text-slate-700 border border-slate-200 rounded px-2 py-1"
+                      />
                       <div className="text-[11px] text-slate-400 truncate">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
                     </div>
                   </div>
@@ -417,21 +423,13 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
                   <input
                     type="file"
                     className="hidden"
-                    onChange={(e) => handleUpload('accounting', e.target.files, accountingKind, accountingNote)}
+                    multiple
+                    onChange={(e) => handleUpload('accounting', e.target.files, accountingKind)}
                   />
                 </label>
               </div>
             </div>
-            <div className="grid md:grid-cols-[2fr_1fr] gap-3 mb-3">
-              <p className="text-sm text-slate-500">Store working papers, tax packs, or evidence. Organised and logged.</p>
-              <input
-                type="text"
-                value={accountingNote}
-                onChange={(e) => setAccountingNote(e.target.value)}
-                placeholder="Note (e.g., Jan 2025 VAT)"
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm"
-              />
-            </div>
+            <p className="text-sm text-slate-500 mb-3">Store working papers, tax packs, or evidence. Organised and logged.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {accountingDocs.length === 0 && <div className="text-sm text-slate-400">No accounting documents uploaded.</div>}
               {accountingDocs.map((doc) => (
@@ -453,7 +451,13 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
                     <div className="min-w-0">
                       <div className="text-sm font-bold text-slate-800 underline truncate">{doc.name}</div>
                       <div className="text-[11px] text-slate-700 uppercase tracking-[0.2em]">{doc.docKind}</div>
-                      <div className="text-[11px] text-slate-500 truncate">{doc.note || 'No note added'}</div>
+                      <input
+                        type="text"
+                        value={doc.note}
+                        onChange={(e) => updateNote(doc.id, e.target.value)}
+                        placeholder="Add a note"
+                        className="w-full text-[11px] text-slate-700 border border-slate-200 rounded px-2 py-1"
+                      />
                       <div className="text-[11px] text-slate-400 truncate">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
                     </div>
                   </div>

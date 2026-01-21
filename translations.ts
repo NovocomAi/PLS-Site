@@ -18,7 +18,7 @@ export const translations = {
       desc: 'Established multidisciplinary firm bridging jurisdictions with unmatched expertise in law, finance, and linguistic services.',
       explore: 'Explore Services',
       schedule: 'Schedule Consultation',
-      partners: 'Partner Law Firms',
+      partners: 'Solicitors (Partner Firms)',
       exp: 'Years Experience',
       compliance: 'Regulatory Compliance',
     },
@@ -32,7 +32,7 @@ export const translations = {
     about: {
       tag: 'Our Leadership',
       credentials: 'BA Hons TFL, ELB, CML, (MCIL)',
-      liaison: 'Expert Liaison',
+      liaison: 'Portuguese Legal Specialist Liaison',
       liaisonDesc: 'Bridging jurisdictions since 1999',
       bio: "With decades of experience in bridging the professional landscapes of the United Kingdom and Portugal, Pedro Xavier stands as a beacon of excellence in cross-border consultancy. His multi-disciplinary background as a Chartered Linguist and Business Strategist provides a unique foundation for PLS Consultants' multidisciplinary success.",
       cta: 'Consult Pedro',
@@ -112,7 +112,7 @@ export const translations = {
       legal: 'Legal',
     },
     serviceCards: {
-      legalTitle: 'Legal Services',
+      legalTitle: 'Solicitors (Partner Firms)',
       legalDesc: 'Premier legal representation via world-class partner law firms.',
       legalLong:
         'Expertise in Property, Immigration, Family, and Portuguese Law through partnerships with Millbank, Montague, and AQ Archers.',
@@ -150,7 +150,7 @@ export const translations = {
       desc: 'Empresa multidisciplinar estabelecida que une jurisdições com uma perícia inigualável em direito, finanças e serviços linguísticos.',
       explore: 'Explorar Serviços',
       schedule: 'Agendar Consulta',
-      partners: 'Sociedades Parceiras',
+      partners: 'Sociedades de Advogados Parceiras',
       exp: 'Anos de Experiência',
       compliance: 'Conformidade Regulatória',
     },
@@ -164,7 +164,7 @@ export const translations = {
     about: {
       tag: 'A Nossa Liderança',
       credentials: 'BA Hons TFL, ELB, CML, (MCIL)',
-      liaison: 'Ligação Especializada',
+      liaison: 'Ligação Jurídica Portuguesa',
       liaisonDesc: 'Unindo jurisdições desde 1999',
       bio: 'Com décadas de experiência na ponte entre os panoramas profissionais do Reino Unido e de Portugal, Pedro Xavier é um pilar de excelência em consultoria transfronteiriça. O seu percurso multidisciplinar como Linguista Certificado e Estrategista de Negócios fornece uma base única para o sucesso da PLS Consultants.',
       cta: 'Consultar Pedro',
@@ -244,7 +244,7 @@ export const translations = {
       legal: 'Jurídico',
     },
     serviceCards: {
-      legalTitle: 'Serviços Jurídicos',
+      legalTitle: 'Sociedades de Advogados (Parceiras)',
       legalDesc:
         'Representação jurídica de primeira classe através de sociedades de advogados de renome mundial.',
       legalLong:

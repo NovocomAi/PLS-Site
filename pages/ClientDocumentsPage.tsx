@@ -262,7 +262,12 @@ const ClientDocumentsPage: React.FC = () => {
                   </div>
                   {match ? (
                     <>
-                      <div className="flex items-center gap-3 min-w-0">
+                      <a
+                        href={match.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 min-w-0 hover:text-amber-700"
+                      >
                         <div className="w-12 h-12 rounded-xl bg-white border border-slate-100 overflow-hidden flex items-center justify-center">
                           {match.isImage ? (
                             <img src={match.url} alt={match.name} className="w-full h-full object-cover" />
@@ -274,7 +279,7 @@ const ClientDocumentsPage: React.FC = () => {
                           <div className="text-sm font-bold text-slate-800 truncate">{match.name}</div>
                           <div className="text-[11px] text-slate-400 truncate">{formatSize(match.size)} • {new Date(match.timestamp).toLocaleString()}</div>
                         </div>
-                      </div>
+                      </a>
                       <div className="flex items-center gap-2">
                         <input
                           type="text"
@@ -339,7 +344,12 @@ const ClientDocumentsPage: React.FC = () => {
                   {filled ? (
                     matches.map((doc) => (
                       <div key={doc.id} className="border border-slate-100 rounded-lg p-2 bg-white flex flex-col gap-2">
-                        <div className="flex items-center gap-3 min-w-0">
+                        <a
+                          href={doc.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 min-w-0 hover:text-amber-700"
+                        >
                           <div className="w-10 h-10 rounded-lg bg-white border border-slate-100 overflow-hidden flex items-center justify-center">
                             {doc.isImage ? (
                               <img src={doc.url} alt={doc.name} className="w-full h-full object-cover" />
@@ -351,7 +361,7 @@ const ClientDocumentsPage: React.FC = () => {
                             <div className="text-sm font-bold text-slate-800 truncate">{doc.name}</div>
                             <div className="text-[11px] text-slate-400 truncate">{formatSize(doc.size)} • {new Date(doc.timestamp).toLocaleString()}</div>
                           </div>
-                        </div>
+                        </a>
                         <div className="flex items-center gap-2">
                           <input
                             type="text"

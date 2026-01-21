@@ -165,7 +165,7 @@ const HomePage: React.FC<HomePageProps> = ({ lang }) => {
 
       <ClientPortalSection lang={lang} />
 
-      <section id="contact" className="py-32 bg-slate-900 text-white border-t border-slate-200/20">
+      <section id="contact" className="py-24 bg-slate-900 text-white border-t-4 border-amber-500/80">
         <ContactSection lang={lang} />
       </section>
     </>

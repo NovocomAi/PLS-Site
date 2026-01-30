@@ -287,7 +287,7 @@ const ClientDocumentsPage: React.FC = () => {
             <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-600">
               Client documents
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 mt-0.5">
+            <h1 className="text-3xl font-bold text-slate-900 mt-0">
               {profile?.name || portalEmail}
             </h1>
           </div>

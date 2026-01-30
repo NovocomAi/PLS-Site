@@ -46,6 +46,16 @@ app.use(express.json());
 
 // API Routes (MUST be before static file serving)
 
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    storage: STORAGE_PATH,
+    nodeEnv: process.env.NODE_ENV,
+    storageExists: fs.existsSync(STORAGE_PATH),
+  });
+});
+
 // Upload file
 app.post('/api/upload', upload.single('file'), (req, res) => {
   if (!req.file) {

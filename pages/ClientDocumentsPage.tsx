@@ -281,35 +281,40 @@ const ClientDocumentsPage: React.FC = () => {
       <div className="max-w-6xl mx-auto px-6 space-y-8">
         <input type="file" ref={replaceInputRef} className="hidden" onChange={handleReplace} />
 
-        <div className="flex items-center justify-between gap-3 flex-wrap">
-          <div>
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1">
             <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-600">
               Client documents
             </div>
             <h1 className="text-3xl font-bold text-slate-900 mt-2">
               {profile?.name || portalEmail}
             </h1>
-            <div className="text-slate-600 text-sm">{portalEmail}</div>
           </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            <button
-              onClick={() => navigate('/client')}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
-            >
-              <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center">
-                ←
-              </span>
-              Back to portal
-            </button>
-            <button
-              onClick={() => navigate('/')}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
-            >
-              <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center">
-                🏠
-              </span>
-              Back to website
-            </button>
+          <div className="flex flex-col items-end gap-2">
+            <div className="bg-white border border-slate-200 shadow-sm px-4 py-3 rounded-xl">
+              <div className="text-xs text-slate-500 mb-1">Signed in as</div>
+              <div className="text-sm font-semibold text-slate-900">{portalEmail}</div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => navigate('/client')}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
+              >
+                <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center">
+                  ←
+                </span>
+                Back to portal
+              </button>
+              <button
+                onClick={() => navigate('/')}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
+              >
+                <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center">
+                  🏠
+                </span>
+                Back to website
+              </button>
+            </div>
           </div>
         </div>
 

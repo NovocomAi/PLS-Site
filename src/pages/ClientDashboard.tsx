@@ -24,11 +24,12 @@ export const ClientDashboard: React.FC = () => {
 
       setClients(clientData || []);
 
-      // Load documents
+      // Load documents (limit to 50 for performance)
       const { data: docData } = await supabase
         .from('documents')
         .select('*')
-        .order('uploaded_at', { ascending: false });
+        .order('uploaded_at', { ascending: false })
+        .limit(50);
 
       setDocuments(docData || []);
     } catch (err) {

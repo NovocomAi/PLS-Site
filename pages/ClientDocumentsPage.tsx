@@ -279,7 +279,7 @@ const ClientDocumentsPage: React.FC = () => {
 
   return (
     <div className="bg-slate-50 py-8">
-      <div className="max-w-6xl mx-auto px-6 space-y-2">
+      <div className="max-w-6xl mx-auto px-6 space-y-1">
         <input type="file" ref={replaceInputRef} className="hidden" onChange={handleReplace} />
 
         <div className="flex items-start justify-between gap-4" style={{ paddingTop: '70px' }}>

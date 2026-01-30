@@ -305,259 +305,269 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
-            <div className="flex items-center justify-between mb-4 relative">
-              <h2 className="text-xl font-bold text-slate-900">Profile details</h2>
-              <div
-                className="absolute left-1/2 transform -translate-x-1/2"
-                style={{ marginLeft: '-50px' }}
-              >
-                <div className="text-xs text-slate-500">
-                  Signed in as <span className="font-semibold text-slate-900">{portalEmail}</span>
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-slate-900">AI tools</h3>
+                <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">
+                  Client access only
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={saveProfile}
-                className="px-6 py-3 bg-slate-900 text-amber-500 font-bold rounded-xl shadow hover:bg-slate-800 transition-all"
-              >
-                Save changes
-              </button>
+              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <Link
+                  to="/ai/legal"
+                  className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
+                    Legal
+                  </div>
+                  <div className="mt-2 font-bold text-slate-900">AI Legal Guidance</div>
+                  <div className="text-xs text-slate-500 mt-1">
+                    Grounded legal context for UK/PT.
+                  </div>
+                </Link>
+                <Link
+                  to="/ai/translation"
+                  className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
+                    Linguistics
+                  </div>
+                  <div className="mt-2 font-bold text-slate-900">Document Translation</div>
+                  <div className="text-xs text-slate-500 mt-1">
+                    Certified-style EN↔PT translation.
+                  </div>
+                </Link>
+                <Link
+                  to="/ai/analysis"
+                  className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
+                    Imaging
+                  </div>
+                  <div className="mt-2 font-bold text-slate-900">Image Analysis</div>
+                  <div className="text-xs text-slate-500 mt-1">
+                    Upload evidence for structured insight.
+                  </div>
+                </Link>
+                <Link
+                  to="/ai/chat"
+                  className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
+                    Concierge
+                  </div>
+                  <div className="mt-2 font-bold text-slate-900">NoVo AI Chat</div>
+                  <div className="text-xs text-slate-500 mt-1">
+                    Route requests and get quick answers.
+                  </div>
+                </Link>
+              </div>
             </div>
-            <form className="space-y-5">
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    value={draft.name}
-                    onChange={(e) => setDraft({ ...draft, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
-                    Personal Email
-                  </label>
-                  <input
-                    type="email"
-                    value={draft.email}
-                    onChange={(e) => setDraft({ ...draft, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
-                  />
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
-                    Address Line 1
-                  </label>
-                  <input
-                    type="text"
-                    value={draft.address}
-                    onChange={(e) => setDraft({ ...draft, address: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
-                    Work Email
-                  </label>
-                  <input
-                    type="email"
-                    value={draft.workEmail}
-                    onChange={(e) => setDraft({ ...draft, workEmail: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
-                  />
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
-                    Address Line 2
-                  </label>
-                  <input
-                    type="text"
-                    value={draft.address2}
-                    onChange={(e) => setDraft({ ...draft, address2: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
-                    Mobile
-                  </label>
-                  <input
-                    type="tel"
-                    value={draft.mobile}
-                    onChange={(e) => setDraft({ ...draft, mobile: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
-                  />
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                <div className="grid grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
-                      City
-                    </label>
-                    <input
-                      type="text"
-                      value={draft.city}
-                      onChange={(e) => setDraft({ ...draft, city: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
-                      Postcode
-                    </label>
-                    <input
-                      type="text"
-                      value={draft.postcode}
-                      onChange={(e) => setDraft({ ...draft, postcode: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
-                    Telephone
-                  </label>
-                  <input
-                    type="tel"
-                    value={draft.phone}
-                    onChange={(e) => setDraft({ ...draft, phone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
 
-          <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
-            <h3 className="text-lg font-bold text-slate-900 mb-3">Audit history</h3>
-            <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
-              {audit.length === 0 && (
-                <div className="text-sm text-slate-400">No changes recorded yet.</div>
-              )}
-              {audit.map((entry) => (
-                <div key={entry.id} className="p-3 rounded-xl border border-slate-100 bg-slate-50">
-                  <div className="text-xs font-bold text-slate-700">{entry.summary}</div>
-                  <div className="text-[10px] text-slate-400 uppercase tracking-[0.2em] mt-1">
-                    {new Date(entry.timestamp).toLocaleString()}
+            <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">Audit history</h3>
+              <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
+                {audit.length === 0 && (
+                  <div className="text-sm text-slate-400">No changes recorded yet.</div>
+                )}
+                {audit.map((entry) => (
+                  <div
+                    key={entry.id}
+                    className="p-3 rounded-xl border border-slate-100 bg-slate-50"
+                  >
+                    <div className="text-xs font-bold text-slate-700">{entry.summary}</div>
+                    <div className="text-[10px] text-slate-400 uppercase tracking-[0.2em] mt-1">
+                      {new Date(entry.timestamp).toLocaleString()}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <div className="flex items-center justify-end mb-4">
+              <div className="bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl">
+                <div className="text-xs text-slate-500 mb-1">Signed in as</div>
+                <div className="text-sm font-semibold text-slate-900">{portalEmail}</div>
+              </div>
+            </div>
+
             <div>
-              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
-                Documents
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-bold text-slate-900">Profile details</h2>
+                <button
+                  type="button"
+                  onClick={saveProfile}
+                  className="px-6 py-3 bg-slate-900 text-amber-500 font-bold rounded-xl shadow hover:bg-slate-800 transition-all"
+                >
+                  Save changes
+                </button>
               </div>
-              <div className="text-sm text-slate-500">Summary of your uploads.</div>
+              <form className="space-y-5">
+                <div className="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      value={draft.name}
+                      onChange={(e) => setDraft({ ...draft, name: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+                      Personal Email
+                    </label>
+                    <input
+                      type="email"
+                      value={draft.email}
+                      onChange={(e) => setDraft({ ...draft, email: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+                      Address Line 1
+                    </label>
+                    <input
+                      type="text"
+                      value={draft.address}
+                      onChange={(e) => setDraft({ ...draft, address: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+                      Work Email
+                    </label>
+                    <input
+                      type="email"
+                      value={draft.workEmail}
+                      onChange={(e) => setDraft({ ...draft, workEmail: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+                      Address Line 2
+                    </label>
+                    <input
+                      type="text"
+                      value={draft.address2}
+                      onChange={(e) => setDraft({ ...draft, address2: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+                      Mobile
+                    </label>
+                    <input
+                      type="tel"
+                      value={draft.mobile}
+                      onChange={(e) => setDraft({ ...draft, mobile: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+                        City
+                      </label>
+                      <input
+                        type="text"
+                        value={draft.city}
+                        onChange={(e) => setDraft({ ...draft, city: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+                        Postcode
+                      </label>
+                      <input
+                        type="text"
+                        value={draft.postcode}
+                        onChange={(e) => setDraft({ ...draft, postcode: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+                      Telephone
+                    </label>
+                    <input
+                      type="tel"
+                      value={draft.phone}
+                      onChange={(e) => setDraft({ ...draft, phone: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </form>
             </div>
-            <Link
-              to="/client/documents"
-              className="px-6 py-3 bg-slate-900 text-amber-500 font-bold rounded-xl shadow hover:bg-slate-800 transition-all"
-            >
-              Manage documents
-            </Link>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
-              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-600">
-                Identity
-              </div>
-              <div className="text-2xl font-bold text-slate-900">{identityDocs.length}</div>
-              <div className="text-xs text-slate-500">Passport / Driver Licence</div>
-            </div>
-            <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
-              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">
-                Accounting
-              </div>
-              <div className="text-2xl font-bold text-slate-900">{accountingDocs.length}</div>
-              <div className="text-xs text-slate-500">Bank, compliance, expenses, other</div>
-            </div>
-            <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
-              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">
-                Latest upload
-              </div>
-              <div className="text-sm text-slate-900 font-bold truncate">
-                {docs[0]?.name || '—'}
-              </div>
-              <div className="text-[11px] text-slate-500">
-                {docs[0] ? new Date(docs[0].timestamp).toLocaleString() : 'No documents yet'}
-              </div>
-            </div>
-            <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
-              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">
-                Audit entries
-              </div>
-              <div className="text-2xl font-bold text-slate-900">{audit.length}</div>
-              <div className="text-xs text-slate-500">Recent actions</div>
-            </div>
-          </div>
-        </div>
 
-        <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-slate-900">AI tools</h3>
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">
-              Client access only
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
+                    Documents
+                  </div>
+                  <div className="text-sm text-slate-500">Summary of your uploads.</div>
+                </div>
+                <Link
+                  to="/client/documents"
+                  className="px-6 py-3 bg-slate-900 text-amber-500 font-bold rounded-xl shadow hover:bg-slate-800 transition-all"
+                >
+                  Manage documents
+                </Link>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-600">
+                    Identity
+                  </div>
+                  <div className="text-2xl font-bold text-slate-900">{identityDocs.length}</div>
+                  <div className="text-xs text-slate-500">Passport / Driver Licence</div>
+                </div>
+                <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">
+                    Accounting
+                  </div>
+                  <div className="text-2xl font-bold text-slate-900">{accountingDocs.length}</div>
+                  <div className="text-xs text-slate-500">Bank, compliance, expenses, other</div>
+                </div>
+                <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">
+                    Latest upload
+                  </div>
+                  <div className="text-sm text-slate-900 font-bold truncate">
+                    {docs[0]?.name || '—'}
+                  </div>
+                  <div className="text-[11px] text-slate-500">
+                    {docs[0] ? new Date(docs[0].timestamp).toLocaleString() : 'No documents yet'}
+                  </div>
+                </div>
+                <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">
+                    Audit entries
+                  </div>
+                  <div className="text-2xl font-bold text-slate-900">{audit.length}</div>
+                  <div className="text-xs text-slate-500">Recent actions</div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-3">
-            <Link
-              to="/ai/legal"
-              className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
-            >
-              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
-                Legal
-              </div>
-              <div className="mt-2 font-bold text-slate-900">AI Legal Guidance</div>
-              <div className="text-xs text-slate-500 mt-1">Grounded legal context for UK/PT.</div>
-            </Link>
-            <Link
-              to="/ai/translation"
-              className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
-            >
-              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
-                Linguistics
-              </div>
-              <div className="mt-2 font-bold text-slate-900">Document Translation</div>
-              <div className="text-xs text-slate-500 mt-1">Certified-style EN↔PT translation.</div>
-            </Link>
-            <Link
-              to="/ai/analysis"
-              className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
-            >
-              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
-                Imaging
-              </div>
-              <div className="mt-2 font-bold text-slate-900">Image Analysis</div>
-              <div className="text-xs text-slate-500 mt-1">
-                Upload evidence for structured insight.
-              </div>
-            </Link>
-            <Link
-              to="/ai/chat"
-              className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
-            >
-              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
-                Concierge
-              </div>
-              <div className="mt-2 font-bold text-slate-900">NoVo AI Chat</div>
-              <div className="text-xs text-slate-500 mt-1">
-                Route requests and get quick answers.
-              </div>
-            </Link>
           </div>
         </div>
       </div>

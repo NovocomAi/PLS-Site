@@ -282,8 +282,10 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
         <div className="flex items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold" style={{ paddingTop: '30px' }}>
-              <span className="text-amber-600">Client Portal</span>{' '}
-              <span className="text-slate-900">Your secure workspace</span>
+              <span className="text-amber-600">Client Portal</span>
+              <span style={{ marginLeft: '30px' }} className="text-slate-900">
+                Your secure workspace
+              </span>
             </h1>
             <p className="text-sm text-slate-500 mt-1">
               Manage your profile, upload identity and accounting documents, and view a full audit

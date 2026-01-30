@@ -291,26 +291,21 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
               Manage your profile and keep track of all your documents secure here.
             </p>
           </div>
-          <div className="flex items-center gap-6">
-            <div className="text-sm text-slate-600" style={{ marginLeft: '-50px' }}>
-              Signed in as <span className="font-semibold text-slate-900">{portalEmail}</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => navigate('/')}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
-            >
-              <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center">
-                🏠
-              </span>
-              Back to website
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => navigate('/')}
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
+          >
+            <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center">
+              🏠
+            </span>
+            Back to website
+          </button>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
+        <div className="grid lg:grid-cols-3 gap-6 items-start">
+          <div className="lg:col-span-2 space-y-6 flex flex-col">
+            <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm flex-1">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold text-slate-900">Profile details</h2>
                 <button
@@ -446,7 +441,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2 flex-1">
             <div className="flex justify-end">
               <Link
                 to="/client/documents"

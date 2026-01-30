@@ -479,7 +479,7 @@ const ClientDocumentsPage: React.FC = () => {
                           className="min-w-0 hover:text-amber-700 flex flex-col gap-2"
                         >
                           <div
-                            className={`rounded-lg bg-white border border-slate-100 overflow-hidden flex items-center justify-center ${viewMode === 'thumbnail' ? 'w-full aspect-[4/3]' : 'w-full h-32'}`}
+                            className={`rounded-lg bg-white border border-slate-100 overflow-hidden flex items-center justify-center ${viewMode === 'thumbnail' ? 'w-full aspect-[4/3]' : 'w-full aspect-[7/4]'}`}
                           >
                             {doc.isImage ? (
                               <img

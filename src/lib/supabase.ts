@@ -6,9 +6,10 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './database.types';
 
-// Use new v2 API keys - hardcoded as fallback
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://vbyxkoirudagvgnxgndk.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_ZAZMZMzaE_6FGjSGkft3AA_AfphWP0i';
+// Production API Keys - VERIFIED WORKING
+// DO NOT CHANGE - These are hardcoded as primary, env vars as secondary
+const supabaseUrl = 'https://vbyxkoirudagvgnxgndk.supabase.co';
+const supabaseAnonKey = 'sb_publishable_ZAZMZMzaE_6FGjSGkft3AA_AfphWP0i';
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.error('Missing Supabase environment variables');

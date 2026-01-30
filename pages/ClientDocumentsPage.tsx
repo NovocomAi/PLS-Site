@@ -291,7 +291,7 @@ const ClientDocumentsPage: React.FC = () => {
               {profile?.name || portalEmail}
             </h1>
           </div>
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-end gap-2" style={{ marginTop: '-60px' }}>
             <div className="bg-white border border-slate-200 shadow-sm px-4 py-3 rounded-xl">
               <div className="text-xs text-slate-500 mb-1">Signed in as</div>
               <div className="text-sm font-semibold text-slate-900">{portalEmail}</div>

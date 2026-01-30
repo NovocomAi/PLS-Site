@@ -8,10 +8,3 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
-    env:
-      - key: NODE_ENV
-        value: production
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html

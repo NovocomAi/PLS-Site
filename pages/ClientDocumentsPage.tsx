@@ -279,7 +279,7 @@ const ClientDocumentsPage: React.FC = () => {
 
   return (
     <div className="bg-slate-50 py-8">
-      <div className="max-w-6xl mx-auto px-6 space-y-1">
+      <div className="max-w-6xl mx-auto px-6 space-y-4">
         <input type="file" ref={replaceInputRef} className="hidden" onChange={handleReplace} />
 
         <div className="flex items-start justify-between gap-4" style={{ paddingTop: '70px' }}>
@@ -319,7 +319,10 @@ const ClientDocumentsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div
+          className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4"
+          style={{ marginTop: '-20px' }}
+        >
           <div className="flex items-center justify-between">
             <div>
               <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">

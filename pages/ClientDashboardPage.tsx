@@ -305,7 +305,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
 
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white pt-7 px-7 pb-4 rounded-3xl border border-slate-200 shadow-sm h-full">
+            <div className="bg-white pt-7 px-7 pb-4 rounded-3xl border border-slate-200 shadow-sm">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold text-slate-900">Profile details</h2>
                 <button
@@ -441,7 +441,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
             </div>
           </div>
 
-          <div className="bg-white pt-6 px-6 pb-4 rounded-3xl border border-slate-200 shadow-sm space-y-2 h-full">
+          <div className="bg-white pt-6 px-6 pb-4 rounded-3xl border border-slate-200 shadow-sm space-y-2">
             <div className="flex justify-end">
               <Link
                 to="/client/documents"

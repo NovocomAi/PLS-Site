@@ -361,7 +361,7 @@ const ClientDocumentsPage: React.FC = () => {
                         className="min-w-0 hover:text-amber-700 flex flex-col gap-2"
                       >
                         <div
-                          className={`rounded-xl bg-white border border-slate-100 overflow-hidden flex items-center justify-center ${viewMode === 'thumbnail' ? 'w-full aspect-[4/3]' : 'w-full h-32'}`}
+                          className={`rounded-xl bg-white border border-slate-100 overflow-hidden flex items-center justify-center ${viewMode === 'thumbnail' ? 'w-full aspect-[7/4]' : 'w-full aspect-[7/4]'}`}
                         >
                           {match.isImage ? (
                             <img
@@ -401,7 +401,7 @@ const ClientDocumentsPage: React.FC = () => {
                     </>
                   ) : (
                     <label className="cursor-pointer">
-                      <div className="w-full aspect-[4/3] rounded-xl bg-white border-2 border-dashed border-slate-200 hover:border-amber-400 overflow-hidden flex flex-col items-center justify-center gap-2 transition-colors">
+                      <div className="w-full aspect-[7/4] rounded-xl bg-white border-2 border-dashed border-slate-200 hover:border-amber-400 overflow-hidden flex flex-col items-center justify-center gap-2 transition-colors">
                         <div className="text-3xl">📤</div>
                         <div className="text-xs font-bold text-slate-600">Upload {type.label}</div>
                       </div>

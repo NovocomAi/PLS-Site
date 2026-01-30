@@ -316,14 +316,89 @@ const ClientDocumentsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-          <div className="flex items-center justify-end mb-4">
-            <div className="bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl">
-              <div className="text-xs text-slate-500 mb-1">Signed in as</div>
-              <div className="text-sm font-semibold text-slate-900">{portalEmail}</div>
+        <div className="grid lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-slate-900">AI tools</h3>
+                <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">
+                  Client access only
+                </div>
+              </div>
+              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <Link
+                  to="/ai/legal"
+                  className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
+                    Legal
+                  </div>
+                  <div className="mt-2 font-bold text-slate-900">AI Legal Guidance</div>
+                  <div className="text-xs text-slate-500 mt-1">Grounded legal context for UK/PT.</div>
+                </Link>
+                <Link
+                  to="/ai/translation"
+                  className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
+                    Linguistics
+                  </div>
+                  <div className="mt-2 font-bold text-slate-900">Document Translation</div>
+                  <div className="text-xs text-slate-500 mt-1">Certified-style EN↔PT translation.</div>
+                </Link>
+                <Link
+                  to="/ai/analysis"
+                  className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
+                    Imaging
+                  </div>
+                  <div className="mt-2 font-bold text-slate-900">Image Analysis</div>
+                  <div className="text-xs text-slate-500 mt-1">
+                    Upload evidence for structured insight.
+                  </div>
+                </Link>
+                <Link
+                  to="/ai/chat"
+                  className="p-4 border border-slate-100 rounded-xl hover:border-amber-200 hover:bg-amber-50/40 transition-colors shadow-sm"
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
+                    Concierge
+                  </div>
+                  <div className="mt-2 font-bold text-slate-900">NoVo AI Chat</div>
+                  <div className="text-xs text-slate-500 mt-1">
+                    Route requests and get quick answers.
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">Audit history</h3>
+              <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
+                {audit.length === 0 && (
+                  <div className="text-sm text-slate-400">No changes recorded yet.</div>
+                )}
+                {audit.map((entry) => (
+                  <div key={entry.id} className="p-3 rounded-xl border border-slate-100 bg-slate-50">
+                    <div className="text-xs font-bold text-slate-700">{entry.summary}</div>
+                    <div className="text-[10px] text-slate-400 uppercase tracking-[0.2em] mt-1">
+                      {new Date(entry.timestamp).toLocaleString()}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <div className="flex items-center justify-end mb-4">
+              <div className="bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl">
+                <div className="text-xs text-slate-500 mb-1">Signed in as</div>
+                <div className="text-sm font-semibold text-slate-900">{portalEmail}</div>
+              </div>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-3">
             {identityTypes.map((type) => {
               const match = identityDocs.find((d) => d.docKind === type.key);
               return (
@@ -527,6 +602,23 @@ const ClientDocumentsPage: React.FC = () => {
           <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
             {audit.length === 0 && (
               <div className="text-sm text-slate-400">No changes recorded.</div>
+            )}
+            {audit.map((entry) => (
+              <div key={entry.id} className="p-3 rounded-xl border border-slate-100 bg-slate-50">
+                <div className="text-xs font-bold text-slate-700">{entry.summary}</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-[0.2em] mt-1">
+                  {new Date(entry.timestamp).toLocaleString()}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
+          <h3 className="text-lg font-bold text-slate-900 mb-3">Audit history</h3>
+          <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
+            {audit.length === 0 && (
+              <div className="text-sm text-slate-400">No changes recorded yet.</div>
             )}
             {audit.map((entry) => (
               <div key={entry.id} className="p-3 rounded-xl border border-slate-100 bg-slate-50">

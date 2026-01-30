@@ -465,7 +465,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
             </div>
             <Link
               to="/client/documents"
-              className="px-4 py-2 bg-slate-900 text-amber-500 rounded-lg text-sm font-bold hover:bg-slate-800"
+              className="px-6 py-3 bg-slate-900 text-amber-500 font-bold rounded-xl shadow hover:bg-slate-800 transition-all"
             >
               Manage documents
             </Link>

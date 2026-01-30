@@ -277,10 +277,10 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
         <input type="file" ref={replaceInputRef} className="hidden" onChange={handleReplace} />
         <div className="flex items-center justify-between gap-4">
           <div>
-            <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-600">
+            <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-600 pt-2">
               Client Portal
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 mt-1">Your secure workspace</h1>
+            <h1 className="text-3xl font-bold text-slate-900 mt-0.5">Your secure workspace</h1>
             <p className="text-sm text-slate-500 mt-1">
               Manage your profile, upload identity and accounting documents, and view a full audit
               trail of changes.
@@ -301,17 +301,19 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 bg-white p-7 rounded-3xl border border-slate-200 shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className="text-xl font-bold text-slate-900">Profile details</h2>
-                <div className="text-xs text-slate-500 mt-1">Signed in as {portalEmail}</div>
+              <h2 className="text-xl font-bold text-slate-900">Profile details</h2>
+              <div className="flex items-center gap-3">
+                <div className="text-xs text-slate-500">
+                  Signed in as <span className="font-semibold text-slate-900">{portalEmail}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={saveProfile}
+                  className="px-6 py-3 bg-slate-900 text-amber-500 font-bold rounded-xl shadow hover:bg-slate-800 transition-all"
+                >
+                  Save changes
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={saveProfile}
-                className="px-6 py-3 bg-slate-900 text-amber-500 font-bold rounded-xl shadow hover:bg-slate-800 transition-all"
-              >
-                Save changes
-              </button>
             </div>
             <form className="space-y-5">
               <div className="grid md:grid-cols-2 gap-5">

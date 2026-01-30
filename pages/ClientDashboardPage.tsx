@@ -447,7 +447,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
             <div className="flex justify-end">
               <Link
                 to="/client/documents"
@@ -456,21 +456,21 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
                 Manage documents
               </Link>
             </div>
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
               <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-600">
                 Identity
               </div>
               <div className="text-2xl font-bold text-slate-900">{identityDocs.length}</div>
               <div className="text-xs text-slate-500">Passport / Driver Licence</div>
             </div>
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
               <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">
                 Accounting
               </div>
               <div className="text-2xl font-bold text-slate-900">{accountingDocs.length}</div>
               <div className="text-xs text-slate-500">Bank, compliance, expenses, other</div>
             </div>
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
               <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">
                 Latest upload
               </div>
@@ -481,7 +481,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
                 {docs[0] ? new Date(docs[0].timestamp).toLocaleString() : 'No documents yet'}
               </div>
             </div>
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="p-4 border border-slate-100 rounded-2xl bg-slate-50">
               <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">
                 Audit entries
               </div>
@@ -489,6 +489,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
               <div className="text-xs text-slate-500">Recent actions</div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

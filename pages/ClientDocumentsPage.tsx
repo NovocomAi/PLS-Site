@@ -331,10 +331,7 @@ const ClientDocumentsPage: React.FC = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-600">
-                Identity documents
-              </div>
-              <div className="text-sm text-slate-500">Upload passport or driver licence.</div>
+              <div className="text-sm text-slate-500">Upload passport and driver's licence</div>
             </div>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">

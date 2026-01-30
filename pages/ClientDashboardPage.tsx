@@ -277,10 +277,12 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
         <input type="file" ref={replaceInputRef} className="hidden" onChange={handleReplace} />
         <div className="flex items-center justify-between gap-4">
           <div>
-            <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-600 pt-2">
+            <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-600">
               Client Portal
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 mt-0.5">Your secure workspace</h1>
+            <h1 className="text-3xl font-bold text-slate-900" style={{ marginTop: '30px' }}>
+              Your secure workspace
+            </h1>
             <p className="text-sm text-slate-500 mt-1">
               Manage your profile, upload identity and accounting documents, and view a full audit
               trail of changes.

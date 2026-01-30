@@ -60,7 +60,7 @@ const ClientDocumentsPage: React.FC = () => {
     }
 
     // Also fetch from backend to ensure we have all files
-    fetch(`/api/files/${portalEmail}`)
+    fetch(`/api/files?clientId=${encodeURIComponent(portalEmail)}`)
       .then((res) => res.json())
       .then((files) => {
         if (files && files.length > 0) {

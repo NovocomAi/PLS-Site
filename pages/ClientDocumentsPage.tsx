@@ -327,7 +327,7 @@ const ClientDocumentsPage: React.FC = () => {
 
         <div
           className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4"
-          style={{ marginTop: '-40px' }}
+          style={{ marginTop: '-10px' }}
         >
           <div className="flex items-center justify-between">
             <div>

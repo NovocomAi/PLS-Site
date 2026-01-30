@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Id } from '../contexts/AuthContext';
 
 export const AdminLoginPage: React.FC = () => {
   const [email, setEmail] = useState('');

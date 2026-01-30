@@ -288,8 +288,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
               </span>
             </h1>
             <p className="text-sm text-slate-500 mt-1">
-              Manage your profile, upload identity and accounting documents, and view a full audit
-              trail of changes.
+              Manage your profile and keep track of all your documents secure here.
             </p>
           </div>
           <div className="flex items-center gap-6">

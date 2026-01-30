@@ -278,13 +278,13 @@ const ClientDocumentsPage: React.FC = () => {
   }
 
   return (
-    <div className="bg-slate-50 py-8">
+    <div className="bg-slate-50 py-8 pt-12">
       <div className="max-w-6xl mx-auto px-6 space-y-4">
         <input type="file" ref={replaceInputRef} className="hidden" onChange={handleReplace} />
 
-        <div className="flex items-start justify-between gap-4" style={{ paddingTop: '55px' }}>
+        <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold" style={{ paddingBottom: '30px' }}>
+            <h1 className="text-3xl font-bold" style={{ paddingTop: '30px' }}>
               <span className="text-amber-600">Client documents</span>
               <span style={{ marginLeft: '30px' }} className="text-slate-900">
                 {profile?.name || portalEmail}
@@ -325,10 +325,7 @@ const ClientDocumentsPage: React.FC = () => {
           </div>
         </div>
 
-        <div
-          className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4"
-          style={{ marginTop: '-10px' }}
-        >
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <div className="text-sm text-slate-500">Upload passport and driver's licence</div>

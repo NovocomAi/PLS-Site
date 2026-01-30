@@ -279,7 +279,7 @@ const ClientDocumentsPage: React.FC = () => {
 
   return (
     <div className="bg-slate-50 py-8">
-      <div className="max-w-6xl mx-auto px-6 space-y-4">
+      <div className="max-w-6xl mx-auto px-6 space-y-2">
         <input type="file" ref={replaceInputRef} className="hidden" onChange={handleReplace} />
 
         <div className="flex items-start justify-between gap-4">
@@ -287,7 +287,7 @@ const ClientDocumentsPage: React.FC = () => {
             <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-600">
               Client documents
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 mt-2">
+            <h1 className="text-3xl font-bold text-slate-900 mt-0.5">
               {profile?.name || portalEmail}
             </h1>
           </div>

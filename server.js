@@ -1,8 +1,8 @@
 import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import fs from 'fs';
 import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,16 +35,14 @@ const upload = multer({
     filename: (req, file, cb) => {
       const filename = req.body.filename || `${Date.now()}_${file.originalname}`;
       cb(null, filename);
-    }
-  })
+    },
+  }),
 });
 
 // Middleware
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'dist')));
-app.use(express.static(STORAGE_PATH)); // Serve uploaded files
 
-// API Routes
+// API Routes (MUST be before static file serving)
 
 // Upload file
 app.post('/api/upload', upload.single('file'), (req, res) => {
@@ -56,7 +54,7 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   res.json({
     success: true,
     url: url,
-    filename: req.body.filename
+    filename: req.body.filename,
   });
 });
 
@@ -70,10 +68,10 @@ app.get('/api/files', (req, res) => {
       return res.json([]);
     }
 
-    const files = fs.readdirSync(clientDir).map(filename => ({
+    const files = fs.readdirSync(clientDir).map((filename) => ({
       name: filename,
       url: `/uploads/${clientId}/${filename}`,
-      size: fs.statSync(path.join(clientDir, filename)).size
+      size: fs.statSync(path.join(clientDir, filename)).size,
     }));
 
     res.json(files);
@@ -86,7 +84,7 @@ app.get('/api/files', (req, res) => {
 app.post('/api/delete', (req, res) => {
   try {
     const filepath = path.join(STORAGE_PATH, req.body.filepath);
-    
+
     // Security check - ensure path is within STORAGE_PATH
     if (!filepath.startsWith(STORAGE_PATH)) {
       return res.status(403).json({ error: 'Invalid path' });
@@ -103,7 +101,11 @@ app.post('/api/delete', (req, res) => {
   }
 });
 
-// SPA routing - fallback to index.html
+// Static file serving (MUST be after API routes)
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/uploads', express.static(STORAGE_PATH)); // Serve uploaded files
+
+// SPA routing - fallback to index.html (MUST be last)
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });

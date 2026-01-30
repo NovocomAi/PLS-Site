@@ -32,7 +32,7 @@ export const AdminLoginPage: React.FC = () => {
 
   return (
     <div className="bg-white py-20 min-h-[100vh] flex items-center">
-      <div className="max-w-md mx-auto px-6 w-full">
+      <div className="max-w-md mx-auto px-6 w-full mt-20">
         <div className="mb-10 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-900 text-amber-500 rounded-full text-xs font-bold uppercase tracking-[0.25em]">
             Admin Panel

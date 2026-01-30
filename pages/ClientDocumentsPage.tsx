@@ -297,7 +297,7 @@ const ClientDocumentsPage: React.FC = () => {
           <div className="flex flex-col items-end gap-2" style={{ marginTop: '-60px' }}>
             <div
               className="bg-white border border-slate-200 shadow-sm px-4 py-3 rounded-xl"
-              style={{ marginLeft: '-70px', marginTop: '40px' }}
+              style={{ marginLeft: '-70px', marginTop: '90px' }}
             >
               <div className="text-xs text-slate-500 mb-1">Signed in as</div>
               <div className="text-sm font-semibold text-slate-900">{portalEmail}</div>
@@ -326,11 +326,6 @@ const ClientDocumentsPage: React.FC = () => {
         </div>
 
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-sm text-slate-500">Upload passport and driver's licence</div>
-            </div>
-          </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {identityTypes.map((type) => {
               const match = identityDocs.find((d) => d.docKind === type.key);

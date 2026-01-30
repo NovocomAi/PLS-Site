@@ -266,21 +266,17 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
   }
 
   return (
-    <div className="bg-slate-50 py-14">
+    <div className="bg-slate-50 py-8">
       <div className="max-w-6xl mx-auto px-6 space-y-6">
         <input type="file" ref={replaceInputRef} className="hidden" onChange={handleReplace} />
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold uppercase tracking-[0.25em]">
+            <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-600">
               Client Portal
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mt-3 font-serif italic">
-              Your secure workspace
+            <h1 className="text-3xl font-bold text-slate-900 mt-2">
+              {profile?.name || portalEmail}
             </h1>
-            <p className="text-slate-600 mt-3 max-w-2xl">
-              Manage your profile, upload identity and accounting documents, and view a full audit
-              trail of changes.
-            </p>
           </div>
           <div className="flex flex-col items-end gap-2">
             <div className="bg-white border border-slate-200 shadow-sm px-4 py-3 rounded-xl">
@@ -292,6 +288,7 @@ const ClientDashboardPage: React.FC<ClientDashboardPageProps> = ({ lang: _lang }
               </div>
             </div>
             <button
+              type="button"
               onClick={() => navigate('/')}
               className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
             >

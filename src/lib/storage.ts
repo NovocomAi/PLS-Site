@@ -1,5 +1,16 @@
 /**
  * Render Persistent Disk Storage Handler - File uploads
+ * 
+ * Directory structure:
+ * /mnt/data/uploads/
+ *   ├── clients/
+ *   │   ├── client_1/
+ *   │   │   ├── invoices/
+ *   │   │   ├── contracts/
+ *   │   │   ├── documents/
+ *   │   │   └── identity/
+ *   ├── temp/
+ *   └── archived/
  */
 
 import { supabase } from './supabase';

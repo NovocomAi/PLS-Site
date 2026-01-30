@@ -12,8 +12,37 @@ const AdminSettingsPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [resetMessage, setResetMessage] = useState<{
+    type: 'success' | 'error';
+    text: string;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handleResetTestData = () => {
+    if (
+      !confirm(
+        'Are you sure you want to reset all test data? This will clear:\n- All localStorage data\n- Test client documents\n\nThis cannot be undone!'
+      )
+    ) {
+      return;
+    }
+
+    try {
+      // Clear all localStorage
+      localStorage.clear();
+
+      setResetMessage({
+        type: 'success',
+        text: 'All test data has been cleared! Refresh the page to start fresh.',
+      });
+    } catch (error) {
+      setResetMessage({
+        type: 'error',
+        text: 'Failed to reset test data: ' + (error as Error).message,
+      });
+    }
+  };
 
   const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -220,6 +249,35 @@ const AdminSettingsPage: React.FC = () => {
               <code className="bg-white px-2 py-1 rounded">admin@pls.com</code>
             </li>
           </ul>
+        </div>
+
+        {/* Reset Test Data */}
+        <div className="mt-8 bg-red-50 p-6 rounded-3xl border-2 border-red-200">
+          <h3 className="text-lg font-bold text-red-900 mb-3">⚠️ Reset Test Data</h3>
+          <p className="text-sm text-red-700 mb-4">
+            Clear all test data including localStorage and client documents. This is useful for
+            testing but cannot be undone!
+          </p>
+
+          {resetMessage && (
+            <div
+              className={`mb-4 p-4 rounded-xl ${
+                resetMessage.type === 'success'
+                  ? 'bg-green-100 text-green-800 border border-green-200'
+                  : 'bg-red-100 text-red-800 border border-red-200'
+              }`}
+            >
+              {resetMessage.text}
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={handleResetTestData}
+            className="w-full bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition-all"
+          >
+            Reset All Test Data
+          </button>
         </div>
       </div>
     </div>
